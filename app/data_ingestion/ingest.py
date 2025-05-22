@@ -1,6 +1,6 @@
 # app/data_ingestion/ingest.py
 """
-Data ingestion script for the Box Office Revenue Predictor (BORP).
+Data ingestion script for FilmQuant ML.
 """
 import os
 import argparse
@@ -196,7 +196,7 @@ def main(input_path: str, output_path: str, config_path: str = None):
         return False
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="BORP Data Ingestion Pipeline")
+    parser = argparse.ArgumentParser(description="FilmQuant ML Data Ingestion Pipeline")
     parser.add_argument(
         "--input", "-i", 
         required=True, 

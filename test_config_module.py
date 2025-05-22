@@ -56,9 +56,9 @@ def test_settings_load():
 def test_env_variables():
     """Test environment variable loading."""
     # Set test environment variables
-    os.environ["BORP_APP__NAME"] = "Env Test App"
-    os.environ["BORP_APP__DEBUG"] = "true"
-    os.environ["BORP_LOGGING__LEVEL"] = "DEBUG"
+    os.environ["FILMQUANT_ML_APP__NAME"] = "Env Test App"
+    os.environ["FILMQUANT_ML_APP__DEBUG"] = "true"
+    os.environ["FILMQUANT_ML_LOGGING__LEVEL"] = "DEBUG"
     
     try:
         # Reload settings
@@ -72,9 +72,9 @@ def test_env_variables():
         print("\nEnvironment variables test passed!")
     finally:
         # Clean up
-        del os.environ["BORP_APP__NAME"] 
-        del os.environ["BORP_APP__DEBUG"]
-        del os.environ["BORP_LOGGING__LEVEL"]
+        del os.environ["FILMQUANT_ML_APP__NAME"] 
+        del os.environ["FILMQUANT_ML_APP__DEBUG"]
+        del os.environ["FILMQUANT_ML_LOGGING__LEVEL"]
 
 def main():
     """Run all tests."""

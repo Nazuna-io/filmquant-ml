@@ -1,6 +1,6 @@
 # app/evaluation/model_tracker.py
 """
-Model tracking and evaluation module for the BORP project.
+Model tracking and evaluation module for the FilmQuant ML project.
 """
 import os
 import json
@@ -406,7 +406,7 @@ class ModelTracker:
             "<!DOCTYPE html>",
             "<html>",
             "<head>",
-            f"<title>BORP Model Report - {model_version}</title>",
+            f"<title>FilmQuant ML Model Report - {model_version}</title>",
             "<style>",
             "body { font-family: Arial, sans-serif; margin: 20px; }",
             "h1 { color: #2c3e50; }",
@@ -423,7 +423,7 @@ class ModelTracker:
             "</style>",
             "</head>",
             "<body>",
-            f"<h1>BORP Model Report - Version: {model_version}</h1>"
+            f"<h1>FilmQuant ML Model Report - Version: {model_version}</h1>"
         ]
         
         # Add timestamp

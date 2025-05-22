@@ -1,6 +1,6 @@
 # app/evaluation/evaluate.py
 """
-Evaluation script for the Box Office Revenue Predictor (BORP).
+Evaluation script for FilmQuant ML.
 """
 import os
 import argparse
@@ -253,7 +253,7 @@ def main(data_path: str, model_version: str, true_column: str, pred_column: str,
         return False
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="BORP Model Evaluation")
+    parser = argparse.ArgumentParser(description="FilmQuant ML Model Evaluation")
     parser.add_argument(
         "--data", "-d", 
         required=True, 
