@@ -1,0 +1,41 @@
+# Application configuration
+app:
+  name: FilmQuant ML - Film Revenue Predictor
+  version: 0.1.0
+  debug: false
+  host: 0.0.0.0
+  port: 8081
+
+# Logging configuration
+logging:
+  level: INFO
+  format: "[%(asctime)s] [%(levelname)s] [%(name)s] [%(filename)s:%(lineno)d] - %(message)s"
+  directory: logs
+  console: true
+  file: true
+  max_bytes: 10485760  # 10MB
+  backup_count: 10
+
+# API configuration
+api:
+  prefix: /api/v1
+  cors_origins:
+    - "*"
+  rate_limit: 100  # requests per minute
+  skip_auth_in_debug: true  # Skip authentication in debug mode
+  # api_key should be set via FILMQUANT_ML_API_API_KEY env var in production
+
+# Data configuration
+data:
+  reference_data_dir: data
+  model_dir: data/models
+
+# Data ingestion configuration
+data_ingestion:
+  default_config_path: config/data_ingestion_default.json
+
+# Evaluation configuration
+evaluation:
+  metrics_dir: evaluation_results/metrics
+  plots_dir: evaluation_results/plots
+  model_tracking_dir: evaluation_results/model_tracking

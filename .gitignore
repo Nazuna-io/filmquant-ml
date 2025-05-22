@@ -1,0 +1,75 @@
+# Python virtual environments
+venv/
+venv-borp/
+.venv/
+env/
+ENV/
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+.pytest_cache/
+flagged/
+
+# Distribution / packaging
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+.pnpm-debug.log*
+
+# Selenium test artifacts
+geckodriver.log
+failure_screenshot.png
+failure_page_source.html
+
+# IDE specific files
+.idea/
+.vscode/
+*.swp
+*.swo
+.project
+.pydevproject
+.settings
+
+# OS-specific
+.DS_Store
+Thumbs.db
+
+# Environment variables and secrets
+.env
+.env.*
+!.env.example
+*.key
+*.pem
+*_secret.*
+*_secrets.*
+*.pfx
+*.p12
+credentials.json
+*_credentials.json
+secrets.yaml
+*_secrets.yaml
+*token*
+*_service_account.json
+

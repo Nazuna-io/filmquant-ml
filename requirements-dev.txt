@@ -1,0 +1,11 @@
+-r requirements.txt
+
+# Development and Testing
+pytest-cov==4.1.0  # For test coverage reports
+flake8==7.0.0      # For code linting
+black==24.1.1      # For code formatting
+mypy==1.8.0        # For type checking
+pre-commit==3.5.0  # For pre-commit hooks
+isort==5.13.2      # For import sorting
+interrogate==1.5.0 # For docstring coverage
+

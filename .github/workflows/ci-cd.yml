@@ -1,0 +1,109 @@
+name: BORP CI/CD Pipeline
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  pre-commit:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+    
+    - name: Install pre-commit
+      run: |
+        python -m pip install --upgrade pip
+        pip install pre-commit
+    
+    - name: Cache pre-commit hooks
+      uses: actions/cache@v3
+      with:
+        path: ~/.cache/pre-commit
+        key: pre-commit-${{ hashFiles('.pre-commit-config.yaml') }}
+    
+    - name: Run pre-commit hooks
+      run: pre-commit run --all-files
+
+  test:
+    needs: pre-commit
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [3.10]
+
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ matrix.python-version }}
+    
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        pip install -r requirements-dev.txt
+    
+    - name: Run tests
+      run: |
+        pytest
+    
+    - name: Generate coverage report
+      run: |
+        pytest --cov=./ --cov-report=xml
+    
+    - name: Upload coverage to Codecov
+      uses: codecov/codecov-action@v3
+      with:
+        file: ./coverage.xml
+        fail_ci_if_error: false
+
+  build:
+    needs: test
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v2
+    
+    - name: Build Docker image
+      uses: docker/build-push-action@v4
+      with:
+        context: .
+        push: false
+        tags: borp:latest
+        cache-from: type=gha
+        cache-to: type=gha,mode=max
+
+  # Deployment job - commented out for now until deployment details are finalized
+  # deploy:
+  #   needs: build
+  #   runs-on: ubuntu-latest
+  #   if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+  #   
+  #   steps:
+  #   - uses: actions/checkout@v3
+  #   
+  #   # Add deployment steps here based on your deployment target
+  #   # For example, deploy to Google Cloud Run:
+  #   # - name: Setup Google Cloud SDK
+  #   #   uses: google-github-actions/setup-gcloud@v0
+  #   #   with:
+  #   #     project_id: ${{ secrets.GCP_PROJECT_ID }}
+  #   #     service_account_key: ${{ secrets.GCP_SA_KEY }}
+  #   #     export_default_credentials: true
+  #   # 
+  #   # - name: Deploy to Cloud Run
+  #   #   run: |
+  #   #     gcloud run deploy borp --image gcr.io/${{ secrets.GCP_PROJECT_ID }}/borp:latest --platform managed --region us-central1 --allow-unauthenticated

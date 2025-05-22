@@ -1,0 +1,3 @@
+# This is a placeholder for the XGBoost model file (borp_revenue_model.ubj or .json)
+# In a real scenario, this file would be a binary or JSON representation of the trained model.
+# For MVP, the actual model loading logic in ml/prediction.py will need to handle a real model file.

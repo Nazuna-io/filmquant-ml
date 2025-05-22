@@ -1,0 +1,75 @@
+{
+    "cleaning": {
+        "enabled": true,
+        "drop_na_columns": [
+            "budget_usd",
+            "box_office_revenue"
+        ],
+        "fill_na_values": {
+            "screens_opening_day": 0,
+            "marketing_budget_est_usd": 0,
+            "trailer_views_prerelease": 0,
+            "runtime_minutes": 120
+        }
+    },
+    "date_features": {
+        "enabled": true,
+        "date_columns": [
+            "release_date"
+        ],
+        "output_format": "onehot"
+    },
+    "categorical_encoding": {
+        "enabled": true,
+        "categorical_columns": [
+            "genre_ids",
+            "director_id",
+            "cast_ids",
+            "studio_id",
+            "mpaa_rating"
+        ],
+        "method": "onehot",
+        "target_column": "box_office_revenue"
+    },
+    "numerical_features": {
+        "enabled": true,
+        "numerical_columns": [
+            "budget_usd",
+            "runtime_minutes",
+            "screens_opening_day",
+            "marketing_budget_est_usd",
+            "trailer_views_prerelease"
+        ],
+        "transformations": {
+            "log": [
+                "budget_usd",
+                "marketing_budget_est_usd",
+                "trailer_views_prerelease",
+                "box_office_revenue"
+            ],
+            "minmax": [
+                "screens_opening_day",
+                "runtime_minutes"
+            ]
+        }
+    },
+    "data_split": {
+        "enabled": true,
+        "target_column": "box_office_revenue",
+        "test_size": 0.2,
+        "random_state": 42,
+        "split_method": "random"
+    },
+    "feature_selection": {
+        "enabled": true,
+        "target_column": "box_office_revenue",
+        "method": "correlation",
+        "threshold": 0.05,
+        "max_features": 20,
+        "include_columns": [
+            "budget_usd",
+            "release_date_quarter",
+            "trailer_views_prerelease_log"
+        ]
+    }
+}
