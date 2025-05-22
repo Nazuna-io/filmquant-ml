@@ -1,0 +1,42 @@
+{
+  "Syncopy": {
+    "id": 1,
+    "tmdb_id": 9996
+  },
+  "Universal Pictures": {
+    "id": 2,
+    "tmdb_id": 33
+  },
+  "Atlas Entertainment": {
+    "id": 3,
+    "tmdb_id": 507
+  },
+  "Breakheart Films": {
+    "id": 4,
+    "tmdb_id": 15123
+  },
+  "Peters Creek Entertainment": {
+    "id": 5,
+    "tmdb_id": 239215
+  },
+  "LuckyChap Entertainment": {
+    "id": 6,
+    "tmdb_id": 82968
+  },
+  "Heyday Films": {
+    "id": 7,
+    "tmdb_id": 437
+  },
+  "NB/GG Pictures": {
+    "id": 8,
+    "tmdb_id": 181486
+  },
+  "Mattel": {
+    "id": 9,
+    "tmdb_id": 6220
+  },
+  "Warner Bros. Pictures": {
+    "id": 10,
+    "tmdb_id": 174
+  }
+}

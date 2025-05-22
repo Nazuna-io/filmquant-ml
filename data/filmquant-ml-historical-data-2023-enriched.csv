@@ -1,0 +1,2 @@
+id,title,genre1_id,genre2_id,genre3_id,genre4_id,genre5_id,studio_id,director_id,actor1_id,actor2_id,actor3_id,actor4_id,actor5_id,actor6_id,rating,budget_usd,budget_category,runtime_minutes,release_date,screens_opening_day,kinocheck_trailer_views,opening_weekend_box_office,actual_box_office_domestic_usd,actual_box_office_international_usd
+2,Barbie,3,4,,,,Warner Bros. Pictures,Greta Gerwig,17,18,19,20,21,22,TBD,145,High,65,2023-07-19,,,,,

@@ -19,4 +19,6 @@ selenium==4.22.0
 webdriver-manager==4.0.1
 python-dotenv==1.0.0 # Added for environment variable loading
 pyyaml==6.0.1 # Added for YAML configuration
+beautifulsoup4==4.12.2 # Added for web scraping
+lxml==4.9.3 # Added for faster HTML parsing
 # Pinned versions based on common compatibility, adjust as needed.
