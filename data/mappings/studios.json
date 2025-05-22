@@ -38,5 +38,465 @@
   "Warner Bros. Pictures": {
     "id": 10,
     "tmdb_id": 174
+  },
+  "Marvel Studios": {
+    "id": 11,
+    "tmdb_id": 420
+  },
+  "Kevin Feige Productions": {
+    "id": 12,
+    "tmdb_id": 176762
+  },
+  "Columbia Pictures": {
+    "id": 13,
+    "tmdb_id": 5
+  },
+  "Sony Pictures Animation": {
+    "id": 14,
+    "tmdb_id": 2251
+  },
+  "Lord Miller": {
+    "id": 15,
+    "tmdb_id": 77973
+  },
+  "Pascal Pictures": {
+    "id": 16,
+    "tmdb_id": 84041
+  },
+  "Arad Productions": {
+    "id": 17,
+    "tmdb_id": 14439
+  },
+  "Marvel Entertainment": {
+    "id": 18,
+    "tmdb_id": 7505
+  },
+  "Illumination": {
+    "id": 19,
+    "tmdb_id": 6704
+  },
+  "Nintendo": {
+    "id": 20,
+    "tmdb_id": 12288
+  },
+  "Paramount Pictures": {
+    "id": 21,
+    "tmdb_id": 4
+  },
+  "Skydance Media": {
+    "id": 22,
+    "tmdb_id": 82819
+  },
+  "TC Productions": {
+    "id": 23,
+    "tmdb_id": 21777
+  },
+  "Thunder Road": {
+    "id": 24,
+    "tmdb_id": 3528
+  },
+  "87Eleven": {
+    "id": 25,
+    "tmdb_id": 23008
+  },
+  "Studio Babelsberg": {
+    "id": 26,
+    "tmdb_id": 264
+  },
+  "Lionsgate": {
+    "id": 27,
+    "tmdb_id": 1632
+  },
+  "Lucasfilm Ltd.": {
+    "id": 28,
+    "tmdb_id": 1
+  },
+  "Village Roadshow Pictures": {
+    "id": 29,
+    "tmdb_id": 79
+  },
+  "The Roald Dahl Story Company": {
+    "id": 30,
+    "tmdb_id": 214904
+  },
+  "Domain Entertainment": {
+    "id": 31,
+    "tmdb_id": 216687
+  },
+  "Apple Studios": {
+    "id": 32,
+    "tmdb_id": 194232
+  },
+  "Imperative Entertainment": {
+    "id": 33,
+    "tmdb_id": 81121
+  },
+  "Sikelia Productions": {
+    "id": 34,
+    "tmdb_id": 23243
+  },
+  "Appian Way": {
+    "id": 35,
+    "tmdb_id": 562
+  },
+  "Entertainment One": {
+    "id": 36,
+    "tmdb_id": 8147
+  },
+  "Kingsway Productions": {
+    "id": 37,
+    "tmdb_id": 87590
+  },
+  "MVP Studios": {
+    "id": 38,
+    "tmdb_id": 73832
+  },
+  "Conglomerate Media": {
+    "id": 39,
+    "tmdb_id": 87591
+  },
+  "Color Force": {
+    "id": 40,
+    "tmdb_id": 5420
+  },
+  "about:blank": {
+    "id": 41,
+    "tmdb_id": 161357
+  },
+  "Metro-Goldwyn-Mayer": {
+    "id": 42,
+    "tmdb_id": 21
+  },
+  "Chartoff-Winkler Productions": {
+    "id": 43,
+    "tmdb_id": 12252
+  },
+  "Proximity Media": {
+    "id": 44,
+    "tmdb_id": 148495
+  },
+  "Outlier Society": {
+    "id": 45,
+    "tmdb_id": 102334
+  },
+  "Radio Silence": {
+    "id": 46,
+    "tmdb_id": 126588
+  },
+  "Project X Entertainment": {
+    "id": 47,
+    "tmdb_id": 130448
+  },
+  "Spyglass Media Group": {
+    "id": 48,
+    "tmdb_id": 143790
+  },
+  "Brownstone Productions": {
+    "id": 49,
+    "tmdb_id": 12365
+  },
+  "Jurassic Party": {
+    "id": 50,
+    "tmdb_id": 118800
+  },
+  "20th Century Studios": {
+    "id": 51,
+    "tmdb_id": 127928
+  },
+  "Scott Free Productions": {
+    "id": 52,
+    "tmdb_id": 1645
+  },
+  "The Mark Gordon Company": {
+    "id": 53,
+    "tmdb_id": 1557
+  },
+  "Genre Films": {
+    "id": 54,
+    "tmdb_id": 28788
+  },
+  "Agatha Christie Limited": {
+    "id": 55,
+    "tmdb_id": 84097
+  },
+  "New Regency Pictures": {
+    "id": 56,
+    "tmdb_id": 10104
+  },
+  "Regency Enterprises": {
+    "id": 57,
+    "tmdb_id": 508
+  },
+  "Bad Dreams Productions": {
+    "id": 58,
+    "tmdb_id": 206867
+  },
+  "Blumhouse Productions": {
+    "id": 59,
+    "tmdb_id": 3172
+  },
+  "Scott Cawthon Productions": {
+    "id": 60,
+    "tmdb_id": 211144
+  },
+  "New Line Cinema": {
+    "id": 61,
+    "tmdb_id": 12
+  },
+  "Atomic Monster": {
+    "id": 62,
+    "tmdb_id": 76907
+  },
+  "The Safran Company": {
+    "id": 63,
+    "tmdb_id": 11565
+  },
+  "Olive Bridge Entertainment": {
+    "id": 64,
+    "tmdb_id": 7291
+  },
+  "Roth-Kirschenbaum Films": {
+    "id": 65,
+    "tmdb_id": 105052
+  },
+  "SK Global Entertainment": {
+    "id": 66,
+    "tmdb_id": 124283
+  },
+  "Santa Fe Films": {
+    "id": 67,
+    "tmdb_id": 90508
+  },
+  "Oddfellows Entertainment": {
+    "id": 68,
+    "tmdb_id": 85465
+  },
+  "Automatik Entertainment": {
+    "id": 69,
+    "tmdb_id": 7625
+  },
+  "Circle of Confusion": {
+    "id": 70,
+    "tmdb_id": 23921
+  },
+  "Skybound Entertainment": {
+    "id": 71,
+    "tmdb_id": 50032
+  },
+  "Smoke House Pictures": {
+    "id": 72,
+    "tmdb_id": 1782
+  },
+  "Excellent Cadaver": {
+    "id": 73,
+    "tmdb_id": 117188
+  },
+  "Odenkirk Provissiero Entertainment": {
+    "id": 74,
+    "tmdb_id": 86647
+  },
+  "Saks Picture Company": {
+    "id": 75,
+    "tmdb_id": 194285
+  },
+  "STXfilms": {
+    "id": 76,
+    "tmdb_id": 47729
+  },
+  "Toff Guy Films": {
+    "id": 77,
+    "tmdb_id": 2900
+  },
+  "Raimi Productions": {
+    "id": 78,
+    "tmdb_id": 122323
+  },
+  "Beck/Woods": {
+    "id": 79,
+    "tmdb_id": 133303
+  },
+  "Bron Studios": {
+    "id": 80,
+    "tmdb_id": 13240
+  },
+  "TSG Entertainment": {
+    "id": 81,
+    "tmdb_id": 22213
+  },
+  "A24": {
+    "id": 82,
+    "tmdb_id": 41077
+  },
+  "Killer Films": {
+    "id": 83,
+    "tmdb_id": 1422
+  },
+  "2AM": {
+    "id": 84,
+    "tmdb_id": 158407
+  },
+  "CJ ENM": {
+    "id": 85,
+    "tmdb_id": 128404
+  },
+  "Les Films de Pierre": {
+    "id": 86,
+    "tmdb_id": 58568
+  },
+  "Les Films Pelléas": {
+    "id": 87,
+    "tmdb_id": 12389
+  },
+  "France 2 Cinéma": {
+    "id": 88,
+    "tmdb_id": 83
+  },
+  "Auvergne-Rhône-Alpes Cinéma": {
+    "id": 89,
+    "tmdb_id": 109756
+  },
+  "Searchlight Pictures": {
+    "id": 90,
+    "tmdb_id": 127929
+  },
+  "Film4 Productions": {
+    "id": 91,
+    "tmdb_id": 6705
+  },
+  "Element Pictures": {
+    "id": 92,
+    "tmdb_id": 3353
+  },
+  "Limp": {
+    "id": 93,
+    "tmdb_id": 72597
+  },
+  "Fruit Tree": {
+    "id": 94,
+    "tmdb_id": 138287
+  },
+  "Miramax": {
+    "id": 95,
+    "tmdb_id": 14
+  },
+  "Gran Via Productions": {
+    "id": 96,
+    "tmdb_id": 2605
+  },
+  "Indian Paintbrush": {
+    "id": 97,
+    "tmdb_id": 9350
+  },
+  "American Empirical Pictures": {
+    "id": 98,
+    "tmdb_id": 23449
+  },
+  "The Apartment Pictures": {
+    "id": 99,
+    "tmdb_id": 128344
+  },
+  "American Zoetrope": {
+    "id": 100,
+    "tmdb_id": 70
+  },
+  "MRC": {
+    "id": 101,
+    "tmdb_id": 2531
+  },
+  "T-Street": {
+    "id": 102,
+    "tmdb_id": 37871
+  },
+  "3 Arts Entertainment": {
+    "id": 103,
+    "tmdb_id": 787
+  },
+  "Almost Infinite": {
+    "id": 104,
+    "tmdb_id": 221959
+  },
+  "Orion Pictures": {
+    "id": 105,
+    "tmdb_id": 41
+  },
+  "Gloria Sanchez Productions": {
+    "id": 106,
+    "tmdb_id": 77152
+  },
+  "Topic Studios": {
+    "id": 107,
+    "tmdb_id": 99366
+  },
+  "Picturestart": {
+    "id": 108,
+    "tmdb_id": 123244
+  },
+  "Spacemaker Productions": {
+    "id": 109,
+    "tmdb_id": 146684
+  },
+  "Lyrical Media": {
+    "id": 110,
+    "tmdb_id": 180839
+  },
+  "Chrono": {
+    "id": 111,
+    "tmdb_id": 194672
+  },
+  "Causeway Films": {
+    "id": 112,
+    "tmdb_id": 32301
+  },
+  "Screen Australia": {
+    "id": 113,
+    "tmdb_id": 7584
+  },
+  "South Australian Film Corporation": {
+    "id": 114,
+    "tmdb_id": 2806
+  },
+  "Bankside Films": {
+    "id": 115,
+    "tmdb_id": 61922
+  },
+  "Head Gear Films": {
+    "id": 116,
+    "tmdb_id": 5056
+  },
+  "Metrol Technology": {
+    "id": 117,
+    "tmdb_id": 25954
+  },
+  "Zapruder Films": {
+    "id": 118,
+    "tmdb_id": 72063
+  },
+  "Rhombus Media": {
+    "id": 119,
+    "tmdb_id": 164
+  },
+  "IPR.VC": {
+    "id": 120,
+    "tmdb_id": 142269
+  },
+  "XYZ Films": {
+    "id": 121,
+    "tmdb_id": 12142
+  },
+  "Access Entertainment": {
+    "id": 122,
+    "tmdb_id": 103376
+  },
+  "JW Films": {
+    "id": 123,
+    "tmdb_id": 27543
+  },
+  "Extreme Emotions": {
+    "id": 124,
+    "tmdb_id": 113962
+  },
+  "ERO Picture Company": {
+    "id": 125,
+    "tmdb_id": 181859
   }
 }

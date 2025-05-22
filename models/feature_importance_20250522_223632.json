@@ -1,0 +1,190 @@
+{
+  "Random Forest": [
+    {
+      "feature": "budget_usd",
+      "importance": 0.2984446275971923
+    },
+    {
+      "feature": "star_power_score",
+      "importance": 0.22549423251071185
+    },
+    {
+      "feature": "runtime_minutes",
+      "importance": 0.14864343197583316
+    },
+    {
+      "feature": "kinocheck_trailer_views",
+      "importance": 0.07322864880964729
+    },
+    {
+      "feature": "genre_4",
+      "importance": 0.07316074516003351
+    },
+    {
+      "feature": "is_major_studio",
+      "importance": 0.06333379183606282
+    },
+    {
+      "feature": "genre_6",
+      "importance": 0.024387594461951802
+    },
+    {
+      "feature": "is_summer_release",
+      "importance": 0.023695065129332615
+    },
+    {
+      "feature": "genre_3",
+      "importance": 0.01357475383354264
+    },
+    {
+      "feature": "budget_category_high",
+      "importance": 0.011168188965956989
+    },
+    {
+      "feature": "release_month",
+      "importance": 0.00949343419314955
+    },
+    {
+      "feature": "release_quarter",
+      "importance": 0.006658990485006997
+    },
+    {
+      "feature": "budget_category_low",
+      "importance": 0.006494121447988621
+    },
+    {
+      "feature": "budget_category_mid",
+      "importance": 0.005780678874020543
+    },
+    {
+      "feature": "genre_1",
+      "importance": 0.005773644920160019
+    },
+    {
+      "feature": "genre_10",
+      "importance": 0.0037241411297547268
+    },
+    {
+      "feature": "genre_9",
+      "importance": 0.002175926114580491
+    },
+    {
+      "feature": "genre_5",
+      "importance": 0.002080558539767156
+    },
+    {
+      "feature": "genre_11",
+      "importance": 0.0008682072889843657
+    },
+    {
+      "feature": "genre_15",
+      "importance": 0.000848307872399963
+    },
+    {
+      "feature": "is_holiday_release",
+      "importance": 0.0003467867956342143
+    },
+    {
+      "feature": "genre_8",
+      "importance": 0.000332559453975899
+    },
+    {
+      "feature": "is_long_runtime",
+      "importance": 0.00029156260431251375
+    }
+  ],
+  "Gradient Boosting": [
+    {
+      "feature": "budget_usd",
+      "importance": 0.5093835772521321
+    },
+    {
+      "feature": "star_power_score",
+      "importance": 0.20776603983872996
+    },
+    {
+      "feature": "is_major_studio",
+      "importance": 0.06054395590024669
+    },
+    {
+      "feature": "kinocheck_trailer_views",
+      "importance": 0.058720601585806095
+    },
+    {
+      "feature": "is_summer_release",
+      "importance": 0.055910519092482264
+    },
+    {
+      "feature": "runtime_minutes",
+      "importance": 0.04996001917077409
+    },
+    {
+      "feature": "genre_5",
+      "importance": 0.011353628323908274
+    },
+    {
+      "feature": "budget_category_high",
+      "importance": 0.009840739246332771
+    },
+    {
+      "feature": "genre_6",
+      "importance": 0.008547468896924046
+    },
+    {
+      "feature": "budget_category_mid",
+      "importance": 0.007907342234759782
+    },
+    {
+      "feature": "genre_3",
+      "importance": 0.007505102033799629
+    },
+    {
+      "feature": "release_month",
+      "importance": 0.005314215708486186
+    },
+    {
+      "feature": "genre_9",
+      "importance": 0.00254888203814432
+    },
+    {
+      "feature": "is_long_runtime",
+      "importance": 0.0014630458532835149
+    },
+    {
+      "feature": "genre_1",
+      "importance": 0.0013795332044723803
+    },
+    {
+      "feature": "genre_10",
+      "importance": 0.0009169649361323248
+    },
+    {
+      "feature": "genre_15",
+      "importance": 0.0003880533603161118
+    },
+    {
+      "feature": "release_quarter",
+      "importance": 0.0002740124170694904
+    },
+    {
+      "feature": "is_holiday_release",
+      "importance": 0.00012527168298018444
+    },
+    {
+      "feature": "budget_category_low",
+      "importance": 0.00012436060728478418
+    },
+    {
+      "feature": "genre_4",
+      "importance": 2.3122267922834268e-05
+    },
+    {
+      "feature": "genre_8",
+      "importance": 2.845140898059472e-06
+    },
+    {
+      "feature": "genre_11",
+      "importance": 6.992071141347568e-07
+    }
+  ]
+}
