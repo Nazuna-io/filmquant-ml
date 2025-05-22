@@ -19,7 +19,10 @@ FilmQuant ML uses machine learning to predict film box office revenue based on v
 
 ### 🖥️ **User Interface (Gradio)**
 *   Clean, professional custom UI with enhanced visual design
-*   Input form for film details (title, genres, director, cast, studio, budget, runtime, release date, screens, marketing, trailer views)
+*   **Comprehensive studio database** including major studios (Disney, Universal, Warner Bros, etc.) and independents (A24, Searchlight, etc.)
+*   **User-friendly input format** with budget and trailer views in millions for better UX
+*   Quick-select buttons for A-list directors, actors, and major studios
+*   Input form for film details (title, genres, director, cast, studio, budget, runtime, release date, trailer views)
 *   Displays prediction results, confidence intervals, revenue splits, top factors, and comparable films
 *   Historical validation mode for testing predictions against actual results
 
@@ -56,6 +59,14 @@ cp .env.example .env
 ```
 
 ### 3. Run the Application
+
+#### Standalone Gradio Interface (Recommended)
+```bash
+python3 filmquant_ui.py
+```
+Visit: `http://localhost:8081/`
+
+#### Full FastAPI + Gradio Application
 ```bash
 python -m app.main
 ```

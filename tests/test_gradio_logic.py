@@ -1,55 +1,52 @@
+"""Test module for Gradio logic components."""
+
+import os
+import sys
+
 import pytest
-from app.main import predict_button_callback # The full predict_button_callback
 
-def test_full_predict_callback_basic_execution(capsys):
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from filmquant_ui import predict_box_office
+
+
+def test_predict_box_office_basic_execution():
     """
-    Tests the full predict_button_callback with dummy inputs to ensure it runs
-    and returns the correct number of outputs.
-    This is a basic check, not an end-to-end data validation.
+    Tests the predict_box_office function with dummy inputs to ensure it runs
+    and returns the correct outputs.
     """
-    # Provide dummy inputs for all 13 arguments
+    # Provide dummy inputs matching current function signature
     dummy_title = "Test Movie"
-    dummy_genre_ids = ["g1"] # Assuming it can handle a list
-    dummy_director_id = "d1"
-    dummy_cast_id1 = "c1"
-    dummy_cast_id2 = "c2"
-    dummy_cast_id3 = None # Test with a None value
-    dummy_studio_id = "s1"
-    dummy_budget_usd = 100000000
-    dummy_runtime_minutes = 120
-    dummy_release_date_str = "2025-01-15" # String date as Gradio would pass it
-    dummy_screens_opening_day = 3000
-    dummy_marketing_budget_est_usd = 50000000
-    dummy_trailer_views_prerelease = 10000000
+    dummy_genres = "Action"
+    dummy_director = "Christopher Nolan"
+    dummy_actor1 = "Leonardo DiCaprio"
+    dummy_actor2 = "Tom Hardy"
+    dummy_actor3 = "Marion Cotillard"
+    dummy_studio = "Universal Pictures"
+    dummy_budget_millions = 200.0
+    dummy_runtime = 148
+    dummy_release_date = "2025-07-04"
+    dummy_trailer_views = 2.0  # In millions
 
-    outputs = predict_button_callback(
+    outputs = predict_box_office(
         dummy_title,
-        dummy_genre_ids,
-        dummy_director_id,
-        dummy_cast_id1,
-        dummy_cast_id2,
-        dummy_cast_id3,
-        dummy_studio_id,
-        dummy_budget_usd,
-        dummy_runtime_minutes,
-        dummy_release_date_str, # Pass string directly
-        dummy_screens_opening_day,
-        dummy_marketing_budget_est_usd,
-        dummy_trailer_views_prerelease
+        dummy_genres,
+        dummy_director,
+        dummy_actor1,
+        dummy_actor2,
+        dummy_actor3,
+        dummy_studio,
+        dummy_budget_millions,
+        dummy_runtime,
+        dummy_release_date,
+        dummy_trailer_views,
     )
 
-    # Check that the DEBUG print statement (for release_date) was called
-    captured = capsys.readouterr()
-    assert f"DEBUG: release_date is '{dummy_release_date_str}'" in captured.out
-
-    # Check that we get 7 outputs as defined in the full function
+    # Check that we get the expected outputs
     assert isinstance(outputs, tuple), "Outputs should be a tuple"
     assert len(outputs) == 7, f"Expected 7 outputs, got {len(outputs)}"
-    
-    # Optional: Basic type checks for outputs if they are consistent
-    # For example, the first output (predicted_revenue) should be a string
-    # This depends on whether get_prediction mock returns an error or valid data
-    # For now, just checking the count is a good first step after the change.
-    # If predict_button_callback returns error values, their types might differ.
-    print(f"Callback outputs: {outputs}") # For debugging the output types in test log
 
+    # Check that first output (predicted revenue) is a string
+    predicted_revenue = outputs[0]
+    assert isinstance(predicted_revenue, str), "Predicted revenue should be a string"
+
+    print(f"Prediction outputs: {outputs}")  # For debugging
