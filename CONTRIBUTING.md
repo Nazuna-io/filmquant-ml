@@ -57,7 +57,7 @@ Thank you for your interest in contributing to the FilmQuant ML project!
    # Pre-commit will run automatically on git commit
    # But you can run it manually too:
    pre-commit run --all-files
-   
+
    # Run tests
    pytest
    ```

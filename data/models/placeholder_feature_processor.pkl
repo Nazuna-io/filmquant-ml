@@ -1,4 +1,0 @@
-# This is a placeholder for the scikit-learn feature_processor.pkl file.
-# This file would typically be a pickled Python object (e.g., a scikit-learn Pipeline).
-# It would contain fitted transformers for scaling, encoding, etc.
-# For MVP, the actual feature processing logic in ml/prediction.py will need this.

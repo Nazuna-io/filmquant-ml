@@ -23,7 +23,7 @@ The enrichment pipeline fills missing data in your historical dataset by:
    ```bash
    # Required
    TMDB_API_KEY=your_actual_tmdb_key_here
-   
+
    # Optional (improves trailer view coverage)
    KINOCHECK_API_KEY=your_kinocheck_key_here
    YOUTUBE_API_KEY=your_youtube_key_here
@@ -38,10 +38,10 @@ The enrichment pipeline fills missing data in your historical dataset by:
    ```bash
    # Test with dry run first
    python scripts/enrich_historical_data.py --dry-run
-   
+
    # Process one film for testing
    python scripts/enrich_historical_data.py --film-id 1
-   
+
    # Process all films
    python scripts/enrich_historical_data.py
    ```
@@ -86,7 +86,7 @@ The enrichment pipeline fills missing data in your historical dataset by:
 
 - `data/filmquant-ml-historical-data-2023-enriched.csv` - Enriched dataset
 - `data/mappings/genres.json` - Genre name to ID mapping
-- `data/mappings/people.json` - Cast/crew name to ID mapping  
+- `data/mappings/people.json` - Cast/crew name to ID mapping
 - `data/mappings/studios.json` - Studio name to ID mapping
 - `data/mappings/tmdb_ids.json` - Film title to TMDB ID mapping
 

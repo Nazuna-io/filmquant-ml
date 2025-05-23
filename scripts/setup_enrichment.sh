@@ -32,13 +32,13 @@ if [ -f ".env" ]; then
     else
         echo "  ✓ TMDB_API_KEY appears to be set"
     fi
-    
+
     if grep -q "KINOCHECK_API_KEY=your_kinocheck_api_key_here" .env; then
         echo "  ⚠ KINOCHECK_API_KEY needs to be updated (optional)"
     else
         echo "  ✓ KINOCHECK_API_KEY appears to be set"
     fi
-    
+
     if grep -q "YOUTUBE_API_KEY=your_youtube_api_key_here" .env; then
         echo "  ⚠ YOUTUBE_API_KEY needs to be updated (optional)"
     else

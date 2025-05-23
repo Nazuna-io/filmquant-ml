@@ -1,6 +1,8 @@
 # Python virtual environments
 venv/
+venv-*/
 venv-borp/
+venv-filmquant-ml/
 .venv/
 env/
 ENV/
@@ -29,8 +31,36 @@ wheels/
 .installed.cfg
 *.egg
 
-# Logs
-logs/
+# Data files and runtime artifacts
+data/
+*.csv
+*.json
+!requirements*.txt
+!package*.json
+!*config*.json
+*.ubj
+models/*.json
+models/*.pkl
+models/*.joblib
+
+# Coverage and testing artifacts
+.coverage
+.coverage.*
+coverage.xml
+*.cover
+htmlcov/
+
+# Backup and temporary files
+*.bak
+*.backup
+*.tmp
+*.temp
+*~
+*.orig
+*.rej
+*.new
+*.old
+*.fixed
 *.log
 npm-debug.log*
 yarn-debug.log*
@@ -72,4 +102,3 @@ secrets.yaml
 *_secrets.yaml
 *token*
 *_service_account.json
-

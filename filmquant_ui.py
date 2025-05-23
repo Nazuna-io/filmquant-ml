@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """
-Production FilmQuant ML Web Interface
+Production FilmQuant ML Web Interface.
+
 - Quick select + search combo for directors, actors, studios
 - All budget values in millions for better UX
 - Real trained model integration
@@ -23,7 +24,7 @@ logger = logging.getLogger(__name__)
 
 # Load the trained model
 def load_trained_model():
-    """Load our trained model"""
+    """Load our trained model."""
     try:
         model_dir = "models"
         model_files = [
@@ -89,6 +90,80 @@ MAJOR_STUDIOS = [
 ]
 
 
+def _initialize_features():
+    """Initialize the feature dictionary with default values."""
+    if not MODEL_DATA:
+        raise Exception("Model not loaded")
+
+    feature_names = MODEL_DATA["feature_names"]
+    return {name: 0 for name in feature_names}
+
+
+def _process_core_features(features, budget_millions, runtime, trailer_views):
+    """Process core numerical features."""
+    # Convert budget from millions to actual USD
+    budget_usd = budget_millions * 1_000_000 if budget_millions else 100_000_000
+
+    # Convert trailer views from millions to actual views
+    trailer_views_actual = trailer_views * 1_000_000 if trailer_views else 2_000_000
+
+    # Core features
+    features["budget_usd"] = budget_usd
+    features["runtime_minutes"] = runtime if runtime else 120
+    features["kinocheck_trailer_views"] = trailer_views_actual
+
+    # Budget categories
+    if budget_usd <= 50_000_000:
+        features["budget_category_low"] = 1
+    elif budget_usd <= 150_000_000:
+        features["budget_category_mid"] = 1
+    else:
+        features["budget_category_high"] = 1
+
+    return budget_usd
+
+
+def _calculate_star_power(features, director, actors):
+    """Calculate star power score based on director and actors."""
+    star_power = 0
+    if director in A_LIST_DIRECTORS:
+        star_power += 2
+    for actor in actors:
+        if actor and actor in A_LIST_ACTORS:
+            star_power += 1
+    features["star_power_score"] = min(star_power, 5)
+
+
+def _process_release_date(features, release_date):
+    """Process release date features."""
+    if release_date:
+        try:
+            date_obj = datetime.strptime(release_date, "%Y-%m-%d")
+            features["release_month"] = date_obj.month
+            features["release_quarter"] = (date_obj.month - 1) // 3 + 1
+            features["is_summer_release"] = 1 if 5 <= date_obj.month <= 8 else 0
+            features["is_holiday_release"] = 1 if date_obj.month in [11, 12] else 0
+        except ValueError:
+            features["release_month"] = 7
+            features["is_summer_release"] = 1
+
+
+def _process_genre_features(features, genres):
+    """Process genre features."""
+    genre_mapping = {
+        "Action": "genre_6",
+        "Comedy": "genre_3",
+        "Drama": "genre_1",
+        "Adventure": "genre_4",
+        "Thriller": "genre_9",
+        "Crime": "genre_5",
+    }
+    if genres:
+        for genre in genres:
+            if genre in genre_mapping and genre_mapping[genre] in features:
+                features[genre_mapping[genre]] = 1
+
+
 def create_feature_vector(
     budget_millions,
     director,
@@ -99,53 +174,19 @@ def create_feature_vector(
     release_date,
     trailer_views,
 ):
-    """Create feature vector for our trained model"""
+    """Create feature vector for our trained model."""
     try:
-        if not MODEL_DATA:
-            raise Exception("Model not loaded")
+        # Initialize features
+        features = _initialize_features()
 
-        feature_names = MODEL_DATA["feature_names"]
-        features = {name: 0 for name in feature_names}
+        # Process core features
+        _process_core_features(features, budget_millions, runtime, trailer_views)
 
-        # Convert budget from millions to actual USD
-        budget_usd = budget_millions * 1_000_000 if budget_millions else 100_000_000
+        # Calculate star power
+        _calculate_star_power(features, director, actors)
 
-        # Convert trailer views from millions to actual views
-        trailer_views_actual = trailer_views * 1_000_000 if trailer_views else 2_000_000
-
-        # Core features
-        features["budget_usd"] = budget_usd
-        features["runtime_minutes"] = runtime if runtime else 120
-        features["kinocheck_trailer_views"] = trailer_views_actual
-
-        # Star power score
-        star_power = 0
-        if director in A_LIST_DIRECTORS:
-            star_power += 2
-        for actor in actors:
-            if actor and actor in A_LIST_ACTORS:
-                star_power += 1
-        features["star_power_score"] = min(star_power, 5)
-
-        # Budget categories
-        if budget_usd <= 50_000_000:
-            features["budget_category_low"] = 1
-        elif budget_usd <= 150_000_000:
-            features["budget_category_mid"] = 1
-        else:
-            features["budget_category_high"] = 1
-
-        # Release timing
-        if release_date:
-            try:
-                date_obj = datetime.strptime(release_date, "%Y-%m-%d")
-                features["release_month"] = date_obj.month
-                features["release_quarter"] = (date_obj.month - 1) // 3 + 1
-                features["is_summer_release"] = 1 if 5 <= date_obj.month <= 8 else 0
-                features["is_holiday_release"] = 1 if date_obj.month in [11, 12] else 0
-            except:
-                features["release_month"] = 7
-                features["is_summer_release"] = 1
+        # Process release date
+        _process_release_date(features, release_date)
 
         # Studio power
         features["is_major_studio"] = 1 if studio in MAJOR_STUDIOS else 0
@@ -153,21 +194,11 @@ def create_feature_vector(
         # Runtime
         features["is_long_runtime"] = 1 if runtime and runtime > 150 else 0
 
-        # Genres (map to our training features)
-        genre_mapping = {
-            "Action": "genre_6",
-            "Comedy": "genre_3",
-            "Drama": "genre_1",
-            "Adventure": "genre_4",
-            "Thriller": "genre_9",
-            "Crime": "genre_5",
-        }
-        if genres:
-            for genre in genres:
-                if genre in genre_mapping and genre_mapping[genre] in features:
-                    features[genre_mapping[genre]] = 1
+        # Process genres
+        _process_genre_features(features, genres)
 
         # Create ordered feature array
+        feature_names = MODEL_DATA["feature_names"]
         feature_array = [features.get(name, 0) for name in feature_names]
         return np.array(feature_array).reshape(1, -1)
 
@@ -189,7 +220,7 @@ def predict_box_office(
     release_date,
     trailer_views,
 ):
-    """Make box office prediction"""
+    """Make box office prediction."""
     try:
         if not MODEL_DATA:
             return (
@@ -308,9 +339,191 @@ def predict_box_office(
 
 
 # Create the interface
-def create_filmquant_interface():
-    """Create the main FilmQuant ML interface"""
+def _setup_quick_select_buttons(element_list, max_per_row=4):
+    """Create quick select buttons for various elements."""
+    buttons = []
 
+    # Create rows of buttons with a maximum per row
+    for i in range(0, len(element_list), max_per_row):
+        with gr.Row():
+            row_elements = element_list[i : i + max_per_row]
+            for element_name in row_elements:
+                btn = gr.Button(element_name, size="sm", elem_classes=["quick-btn"])
+                buttons.append((btn, element_name))
+
+    return buttons
+
+
+def _create_input_column(all_directors, all_actors, all_studios):
+    """Create the input column with all form fields."""
+    with gr.Column(scale=3):
+        gr.Markdown("### 🎯 Film Details")
+
+        title = gr.Textbox(
+            label="Film Title",
+            placeholder="Enter your film title...",
+            value="My Blockbuster Film",
+        )
+
+        genres = gr.Dropdown(
+            label="Genres",
+            choices=[
+                "Action",
+                "Comedy",
+                "Drama",
+                "Adventure",
+                "Thriller",
+                "Crime",
+                "Horror",
+                "Sci-Fi",
+            ],
+            multiselect=True,
+            value=["Action"],
+        )
+
+        # Director with Quick Select
+        gr.Markdown("### 🎬 Director")
+        gr.Markdown("**Quick Select:**")
+
+        director_buttons = _setup_quick_select_buttons(A_LIST_DIRECTORS)
+
+        director = gr.Dropdown(
+            label="Search All Directors",
+            choices=all_directors,
+            filterable=True,
+            value="Christopher Nolan",
+        )
+
+        # Actors with Quick Select
+        gr.Markdown("### 🎭 Lead Cast")
+        gr.Markdown("**A-List Quick Select:**")
+
+        actor_buttons = _setup_quick_select_buttons(A_LIST_ACTORS, max_per_row=6)
+
+        with gr.Row():
+            actor1 = gr.Dropdown(
+                label="Lead Actor 1",
+                choices=all_actors,
+                filterable=True,
+                value="Leonardo DiCaprio",
+            )
+            actor2 = gr.Dropdown(
+                label="Lead Actor 2", choices=all_actors, filterable=True
+            )
+            actor3 = gr.Dropdown(
+                label="Lead Actor 3", choices=all_actors, filterable=True
+            )
+
+        # Studio with Quick Select
+        gr.Markdown("### 🏢 Studio")
+        gr.Markdown("**Major Studios:**")
+
+        studio_buttons = _setup_quick_select_buttons(MAJOR_STUDIOS, max_per_row=3)
+
+        studio = gr.Dropdown(
+            label="Search All Studios",
+            choices=all_studios,
+            filterable=True,
+            value="Universal Pictures",
+        )
+
+        gr.Markdown("### 💰 Production Details")
+
+        budget = gr.Number(
+            label="Budget (Millions USD)",
+            value=200.0,
+            step=10.0,
+            elem_classes=["millions"],
+        )
+
+        runtime = gr.Number(label="Runtime (minutes)", value=130, step=5)
+
+        release_date = gr.Textbox(
+            label="Release Date (YYYY-MM-DD)",
+            value="2025-07-04",
+            placeholder="YYYY-MM-DD",
+        )
+
+        trailer_views = gr.Number(
+            label="Expected Trailer Views (Millions)",
+            value=2.0,
+            step=0.1,
+            elem_classes=["millions"],
+        )
+
+        # Predict Button
+        predict_btn = gr.Button(
+            "🚀 Predict Box Office Performance", variant="primary", size="lg"
+        )
+
+    return (
+        title,
+        genres,
+        director,
+        actor1,
+        actor2,
+        actor3,
+        studio,
+        budget,
+        runtime,
+        release_date,
+        trailer_views,
+        predict_btn,
+        director_buttons,
+        actor_buttons,
+        studio_buttons,
+    )
+
+
+def _create_results_column():
+    """Create the results column with all output fields."""
+    with gr.Column(scale=2):
+        gr.Markdown("### 📊 Prediction Results")
+
+        predicted_revenue = gr.Textbox(
+            label="💰 Predicted Domestic Box Office", interactive=False
+        )
+
+        confidence_interval = gr.Textbox(label="📈 Confidence Range", interactive=False)
+
+        with gr.Row():
+            domestic_share = gr.Textbox(label="🇺🇸 Domestic", interactive=False)
+            international_share = gr.Textbox(
+                label="🌍 International Est.", interactive=False
+            )
+
+        gr.Markdown("### 🎯 Key Factors")
+
+        top_factors = gr.DataFrame(
+            label="Impact Analysis",
+            headers=["Factor", "Impact Level", "Value"],
+            interactive=False,
+        )
+
+        gr.Markdown("### 🎬 Comparable Films")
+
+        comparable_films = gr.DataFrame(
+            label="Similar Releases",
+            headers=["Film", "Box Office", "Category"],
+            interactive=False,
+        )
+
+        with gr.Accordion("🔧 Technical Details", open=False):
+            technical_details = gr.JSON(label="Model Information")
+
+    return (
+        predicted_revenue,
+        confidence_interval,
+        domestic_share,
+        international_share,
+        top_factors,
+        comparable_films,
+        technical_details,
+    )
+
+
+def create_filmquant_interface():
+    """Create the main FilmQuant ML interface."""
     # All available options for search
     all_directors = A_LIST_DIRECTORS + [
         "James Cameron",
@@ -366,173 +579,40 @@ def create_filmquant_interface():
         )
 
         with gr.Row():
-            # Input Column
-            with gr.Column(scale=3):
-                gr.Markdown("### 🎯 Film Details")
+            # Create input and output columns
+            input_elements = _create_input_column(
+                all_directors, all_actors, all_studios
+            )
+            output_elements = _create_results_column()
 
-                title = gr.Textbox(
-                    label="Film Title",
-                    placeholder="Enter your film title...",
-                    value="My Blockbuster Film",
-                )
+            # Unpack the returned values
+            (
+                title,
+                genres,
+                director,
+                actor1,
+                actor2,
+                actor3,
+                studio,
+                budget,
+                runtime,
+                release_date,
+                trailer_views,
+                predict_btn,
+                director_buttons,
+                actor_buttons,
+                studio_buttons,
+            ) = input_elements
 
-                genres = gr.Dropdown(
-                    label="Genres",
-                    choices=[
-                        "Action",
-                        "Comedy",
-                        "Drama",
-                        "Adventure",
-                        "Thriller",
-                        "Crime",
-                        "Horror",
-                        "Sci-Fi",
-                    ],
-                    multiselect=True,
-                    value=["Action"],
-                )
-
-                # Director with Quick Select
-                gr.Markdown("### 🎬 Director")
-                gr.Markdown("**Quick Select:**")
-                with gr.Row():
-                    director_buttons = []
-                    for i, dir_name in enumerate(A_LIST_DIRECTORS[:4]):
-                        btn = gr.Button(dir_name, size="sm", elem_classes=["quick-btn"])
-                        director_buttons.append((btn, dir_name))
-                with gr.Row():
-                    for i, dir_name in enumerate(A_LIST_DIRECTORS[4:8]):
-                        btn = gr.Button(dir_name, size="sm", elem_classes=["quick-btn"])
-                        director_buttons.append((btn, dir_name))
-
-                director = gr.Dropdown(
-                    label="Search All Directors",
-                    choices=all_directors,
-                    filterable=True,
-                    value="Christopher Nolan",
-                )
-
-                # Actors with Quick Select
-                gr.Markdown("### 🎭 Lead Cast")
-                gr.Markdown("**A-List Quick Select:**")
-                with gr.Row():
-                    actor_buttons = []
-                    for i, actor_name in enumerate(A_LIST_ACTORS[:6]):
-                        btn = gr.Button(
-                            actor_name, size="sm", elem_classes=["quick-btn"]
-                        )
-                        actor_buttons.append((btn, actor_name))
-
-                with gr.Row():
-                    for i, actor_name in enumerate(A_LIST_ACTORS[6:12]):
-                        btn = gr.Button(
-                            actor_name, size="sm", elem_classes=["quick-btn"]
-                        )
-                        actor_buttons.append((btn, actor_name))
-
-                with gr.Row():
-                    actor1 = gr.Dropdown(
-                        label="Lead Actor 1",
-                        choices=all_actors,
-                        filterable=True,
-                        value="Leonardo DiCaprio",
-                    )
-                    actor2 = gr.Dropdown(
-                        label="Lead Actor 2", choices=all_actors, filterable=True
-                    )
-                    actor3 = gr.Dropdown(
-                        label="Lead Actor 3", choices=all_actors, filterable=True
-                    )
-
-                # Studio with Quick Select
-                gr.Markdown("### 🏢 Studio")
-                gr.Markdown("**Major Studios:**")
-                with gr.Row():
-                    studio_buttons = []
-                    for studio_name in MAJOR_STUDIOS[:3]:
-                        btn = gr.Button(
-                            studio_name, size="sm", elem_classes=["quick-btn"]
-                        )
-                        studio_buttons.append((btn, studio_name))
-                with gr.Row():
-                    for studio_name in MAJOR_STUDIOS[3:6]:
-                        btn = gr.Button(
-                            studio_name, size="sm", elem_classes=["quick-btn"]
-                        )
-                        studio_buttons.append((btn, studio_name))
-
-                studio = gr.Dropdown(
-                    label="Search All Studios",
-                    choices=all_studios,
-                    filterable=True,
-                    value="Universal Pictures",
-                )
-
-                gr.Markdown("### 💰 Production Details")
-
-                budget = gr.Number(
-                    label="Budget (Millions USD)",
-                    value=200.0,
-                    step=10.0,
-                    elem_classes=["millions"],
-                )
-
-                runtime = gr.Number(label="Runtime (minutes)", value=130, step=5)
-
-                release_date = gr.Textbox(
-                    label="Release Date (YYYY-MM-DD)",
-                    value="2025-07-04",
-                    placeholder="YYYY-MM-DD",
-                )
-
-                trailer_views = gr.Number(
-                    label="Expected Trailer Views (Millions)",
-                    value=2.0,
-                    step=0.1,
-                    elem_classes=["millions"],
-                )
-
-                # Predict Button
-                predict_btn = gr.Button(
-                    "🚀 Predict Box Office Performance", variant="primary", size="lg"
-                )
-
-            # Results Column
-            with gr.Column(scale=2):
-                gr.Markdown("### 📊 Prediction Results")
-
-                predicted_revenue = gr.Textbox(
-                    label="💰 Predicted Domestic Box Office", interactive=False
-                )
-
-                confidence_interval = gr.Textbox(
-                    label="📈 Confidence Range", interactive=False
-                )
-
-                with gr.Row():
-                    domestic_share = gr.Textbox(label="🇺🇸 Domestic", interactive=False)
-                    international_share = gr.Textbox(
-                        label="🌍 International Est.", interactive=False
-                    )
-
-                gr.Markdown("### 🎯 Key Factors")
-
-                top_factors = gr.DataFrame(
-                    label="Impact Analysis",
-                    headers=["Factor", "Impact Level", "Value"],
-                    interactive=False,
-                )
-
-                gr.Markdown("### 🎬 Comparable Films")
-
-                comparable_films = gr.DataFrame(
-                    label="Similar Releases",
-                    headers=["Film", "Box Office", "Category"],
-                    interactive=False,
-                )
-
-                with gr.Accordion("🔧 Technical Details", open=False):
-                    technical_details = gr.JSON(label="Model Information")
+            (
+                predicted_revenue,
+                confidence_interval,
+                domestic_share,
+                international_share,
+                top_factors,
+                comparable_films,
+                technical_details,
+            ) = output_elements
 
         # Wire up quick select buttons
         for btn, name in director_buttons:
